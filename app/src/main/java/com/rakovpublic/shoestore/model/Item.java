@@ -74,4 +74,38 @@ public class Item {
     public int getPriceWithDiscount(){
         return (int)(priceItem - ((priceItem/100)*discountItem));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item)) return false;
+
+        Item item = (Item) o;
+
+        if (discountItem != item.discountItem) return false;
+        if (idItem != item.idItem) return false;
+        if (Double.compare(item.priceItem, priceItem) != 0) return false;
+        if (descriptionItem != null ? !descriptionItem.equals(item.descriptionItem) : item.descriptionItem != null)
+            return false;
+        if (imageItem != null ? !imageItem.equals(item.imageItem) : item.imageItem != null)
+            return false;
+        if (nameItem != null ? !nameItem.equals(item.nameItem) : item.nameItem != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = idItem;
+        temp = Double.doubleToLongBits(priceItem);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (nameItem != null ? nameItem.hashCode() : 0);
+        result = 31 * result + (descriptionItem != null ? descriptionItem.hashCode() : 0);
+        result = 31 * result + (imageItem != null ? imageItem.hashCode() : 0);
+        result = 31 * result + discountItem;
+        return result;
+    }
 }
